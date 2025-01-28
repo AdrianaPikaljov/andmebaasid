@@ -76,7 +76,7 @@ opilaneId int primary key identity (1,1),
 aine text not null,
 opetaja varchar(25) not null,
 aasta char(4),
-hinne int check(hinne between 1 and 5),
+hinne int,
 foreign key (opilaneId) references opilane(opilaneId));
 
 insert into oppiminee(aine, opetaja, aasta, hinne)
