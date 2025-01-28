@@ -1,1 +1,17 @@
-
+andmebaas - AB
+andmebaaside haldus - управление базой данных
+andmebaasi haldussüsteem ABHS- система управления базами данных - субд (SQL Server / XAMPP/ Oracle/ MS Access)
+andmed - данные  
+tabel - 
+veerg = väli
+rida = kirja
+päring (query) - запрос
+loo
+laadi alla
+laadi üles
+rakendus
+varundamine - резервное копирование
+taastamine - восстановление
+päringukeel - язык запроса 
+relatsiooni andmebaas - реляционная база данных
+seos -
