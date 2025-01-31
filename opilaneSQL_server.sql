@@ -69,8 +69,6 @@ from opilane, language, keelevalik
 where opilane.opilaneId=keelevalik.opilaneId
 and language.ID=keelevalik.language
 
-
-
 CREATE TABLE oppiminee(
 opilaneId int primary key identity (1,1),
 aine text not null,
@@ -82,3 +80,85 @@ foreign key (opilaneId) references opilane(opilaneId));
 insert into oppiminee(aine, opetaja, aasta, hinne)
 VALUES ('andmebaasid', 'merkulova', 2025, 5)
 select * from oppimine
+
+
+
+  
+
+create database epoodPikaljov
+use epoodPikaljov;
+
+create table category (
+idCategory int primary key identity (1, 1), 
+CategoryName varchar(25) unique
+)
+select * from category
+insert into category (CategoryName)
+values ('jook'), ('sook')
+
+--table struktuuri muutmine --> uue veergu lisamine 
+alter table category add test int;
+--table struktuuri muutmine --> uue veergu kustutamine
+select * from category
+alter table category drop column test;
+select * from category
+
+create table Product (
+idProduct int primary key identity (1, 1),
+ProductName varchar(25) unique,
+idCategory int,
+Price int
+foreign key (idCategory) references category(idCategory));
+select * from Product
+insert into Product(ProductName, idCategory,  Price)
+values ('coca-cola', 1, 2), ('milka', 2, 6)
+
+Drop table Product;
+create table Product (
+idProduct int primary key identity (1, 1),
+ProductName varchar(25) unique,
+idCategory int,
+Price decimal (5,2),
+foreign key (idCategory) references category(idCategory));
+Drop table Product;
+Drop table Product;
+create table Product (
+idProduct int primary key identity (1, 1),
+ProductName varchar(25) unique,
+idCategory int,
+Price decimal (5,2),
+foreign key (idCategory) references category(idCategory));
+select * from Product
+insert into Product(ProductName, idCategory,  Price)
+values ('apple', 1, 2), ('milka', 2, 6)
+
+create table Sale (
+idSale int primary key identity (1, 1),
+idProduct int,
+idCustomer int,
+Count_ int,
+DateOfSale date,
+foreign key (idProduct) references Product(idProduct));
+
+select * from Sale
+--kustutab koik kirjed 
+delete from Sale;
+
+create table Customer (
+idCustomer int primary key identity (1, 1), 
+name varchar(25),
+contact text) 
+
+alter table Sale add foreign key (idCustomer) references Customer(idCustomer)
+
+select * from Customer
+insert into Customer(name, contact)
+values ('adri', '555555555'), ('adri2', '66666666'), ('adri3', '77777777'),('adri6', '88888888'), ('adri', '999999999')
+insert into Sale(idCustomer,Count_,DateOfSale)
+values (3, 5, '2025-07-07'),(4, 3, '2023-06-06'), (2, 4, '2000-02-06'),(5, 2, '2022-08-06'), (2, 2, '2025-07-07')
+
+select * from Customer;
+select * from Sale;
+select * from Product;
+select * from category;
+
