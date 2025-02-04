@@ -59,6 +59,17 @@ end;
 --kutse 
 exec linnaotsing t;
 
+--ulesanne 
+CREATE TABLE opilane(
+opilaneId int primary key identity (1,1),
+eesnimi varchar(25) not null,
+perekonnanimi varchar(25) not null,
+synniaeg date,
+stip bool,
+aadress text,
+keskmine_hinne decimal(2,1)
+);
+select * from opilane;
 insert into opilane(eesnimi, perekonnanimi, synniaeg, stip, keskmine_hinne)
 VALUES(
 'Adriana',
