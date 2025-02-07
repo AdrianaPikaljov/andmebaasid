@@ -374,3 +374,13 @@ end;
 
 exec inimestearv;
 
+---------------------------------------------------------------------
+XAMPP
+create table sport(
+idInimene int primary key AUTO_INCREMENT, 
+spordinimi varchar(25),
+hind int,
+treener varchar(25));
+insert into sport (spordinimi, hind, treener)
+values ('jalgpall', 5, 'oleg'), ('võrkpall', 30, 'nikita'), ('korvpall', 15, 'aleksandr'), ('käsipall', 50, 'anastasia');
+
