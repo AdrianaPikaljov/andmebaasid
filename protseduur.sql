@@ -197,3 +197,180 @@ linnanimi varchar(30),
 rahvaarv int);
 insert into linn (linnanimi, rahvaarv)
 values  ('paide', 8888888), ('pärnu', 7777777);
+
+
+
+
+--07.02 keerilisemad protseduurid
+create database protseduurPikaljov
+create table linn(
+linnId int primary key identity(1,1),
+linnanimi varchar(30),
+rahvaarv int);
+select * from linn;
+insert into linn (linnanimi, rahvaarv)
+values  ('paide', 8888888), ('pärnu', 7777777), ('narva', 666666), ('tartu', 555555)
+
+create procedure lisaLinn
+@linnanimi varchar(30),
+@rahvaarv int
+as
+begin
+
+insert into linn (linnanimi, rahvaarv)
+values  (@linnanimi, @rahvaarv);
+select * from linn;
+
+end;
+-- protseduuri kutse 
+exec lisaLinn 'maardu', 33333
+
+--protseduur mis kustutab linn id järgi
+create procedure kustutalinn
+@deleteId int 
+as
+begin
+select * from linn;
+delete from linn where  linnId=@deleteId;
+select * from linn;
+end;
+
+--kutse 
+exec kustutalinn 5;
+
+create procedure linnaotsing
+@taht char(1)
+as
+begin 
+select * from linn
+where linnanimi like @taht + '%';
+-- % - koik teised tahed 
+end;
+--kutse 
+exec linnaotsing t;
+
+-- uue veergu lisamine
+alter table linn add test int;
+select * from linn
+--veergu kustutamine 
+alter table linn drop column test;
+create procedure veerulisakustuta
+@valik varchar(20),
+@veergunimi varchar(20),
+@tyyp varchar(20)=null
+as
+begin
+declare @sqltegevus as varchar(max)
+set @sqltegevus=case
+when @valik ='add' then CONCAT('alter table linn add  ', @veergunimi, ' ', @tyyp)
+when @valik ='drop' then  CONCAT('alter table linn drop column  ',  @veergunimi)
+
+end;
+print @sqltegevus
+begin 
+exec (@sqltegevus);
+end;
+end;
+--kutse
+exec veerulisakustuta @valik='add', @veergunimi='test2', @tyyp='int'
+select * from linn
+exec veerulisakustuta @valik='drop', @veergunimi='test2'
+
+create procedure veerulisakustutatabelis
+@valik varchar(20),
+@tabelinimi varchar(20),
+@veergunimi varchar(20),
+@tyyp varchar(20)=null
+
+as
+begin
+declare @sqltegevus as varchar(max)
+set @sqltegevus=case
+when @valik ='add' then CONCAT('alter table ', @tabelinimi, ' add ', @veergunimi, ' ', @tyyp)
+when @valik ='drop' then  CONCAT('alter table ', @tabelinimi, ' drop column ', @veergunimi)
+
+end;
+print @sqltegevus
+begin 
+exec (@sqltegevus);
+end;
+end;
+exec veerulisakustutatabelis @valik='add', @tabelinimi= 'linn',  @veergunimi='test4', @tyyp='int'
+select * from linn
+exec veerulisakustutatabelis @valik='drop', @tabelinimi= 'linn', @veergunimi='test4'
+
+
+--protseduur tingimustega 
+create procedure rahvahinnang 
+@piir int
+as
+begin
+select linnanimi, rahvaarv, iif(rahvaarv<@piir, 'vaike linn', 'suur linn') as hinnang
+from linn;
+
+
+end;
+
+drop procedure rahvahinnang;
+
+exec rahvahinnang 666677;
+
+--agregaat funktsioonid: SUM(), AVG(), MIN(), MAX(), COUNT() 
+
+create procedure kokkurahvaarv
+
+as 
+begin
+select sum(rahvaarv) as 'kokku rahvaarv', avg(rahvaarv) as 'keskmine rahvaarv', min(rahvaarv) as 'minimaalne rahvaarv', count (*) as 'linnade arv'
+from linn;
+end;
+
+drop procedure kokkurahvaarv;
+exec kokkurahvaarv;
+
+create table sport(
+idInimene int primary key identity(1,1), 
+spordinimi varchar(25),
+hind int,
+treener varchar(25));
+select * from sport;
+insert into sport (spordinimi, hind, treener)
+values ('jalgpall', 5, 'oleg'), ('võrkpall', 30, 'nikita'), ('korvpall', 15, 'aleksandr'), ('käsipall', 50, 'anastasia')
+
+--sisestatud hinnast odavama osa otsimise kord
+create procedure odavamsport
+
+as
+begin
+select min(hind) as 'odavam sport'
+from sport;
+end;
+exec odavamsport
+drop procedure odavamsport;
+drop table sport; 
+--protseduur uute andmete lisamiseks tabelisse
+create procedure andmetelisamine
+@spordinimi varchar(25),
+@treener varchar(25),
+@hind int
+as
+begin
+
+insert into sport(spordinimi, treener, hind)
+values  (@spordinimi, @treener,@hind);
+select * from sport
+
+end;
+exec andmetelisamine 'hokki', 'adri', 6
+--kõigi inimeste kokkuarvamise kord
+
+create procedure inimestearv
+
+as 
+begin
+select count (*) as 'inimeste arv'
+from sport;
+end;
+
+exec inimestearv;
+
