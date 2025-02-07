@@ -364,15 +364,15 @@ end;
 exec andmetelisamine 'hokki', 'adri', 6
 --kõigi inimeste kokkuarvamise kord
 
-create procedure inimestearv
+create procedure hindkokku
 
 as 
 begin
-select count (*) as 'inimeste arv'
+select sum (hind) as 'hinnad kokku'
 from sport;
 end;
 
-exec inimestearv;
+exec hindkokku;
 
 ---------------------------------------------------------------------
 XAMPP
