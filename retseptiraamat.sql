@@ -16,7 +16,7 @@ kategooria_id int primary key identity(1,1),
 kategooria_nimi varchar(50));
 
 insert into kategooria(kategooria_nimi)
-values ('xleb'), ('kinder'), ('moloko'), ('raamat'), 
+values ('leib'), ('kinder'), ('piim'), ('raamat'), 
 ('sõnastik'), ('kogus');
 
 delete from kategooria;
