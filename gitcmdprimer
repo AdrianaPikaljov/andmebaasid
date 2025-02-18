@@ -8,9 +8,11 @@ git config --global user.name "AdrianaPikaljov"
 git config --global user.email "pikaljovadri@gmail.com"
 git config --global --list  
 //посмотреть все что сохранилось
---git süsteemis salvestatakse sinu nimiп
-git branch  AdrianaPikaljov
-git checkout AdrianaPikaljov
+cd desktop
+cd TARpv24andmebaasTerms
+--git süsteemis salvestatakse sinu nimi
+git branch  adrianapikaljov
+git checkout adrianapikaljov
 git status
 git add..
 git commit -a -m "nimi on lisatud"
