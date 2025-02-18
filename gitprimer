@@ -1,0 +1,18 @@
+>cd desktor
+>cd ..
+>c:
+git config --global user.name "--"
+//добавить
+
+git config --global user.name "AdrianaPikaljov" 
+git config --global user.email "pikaljovadri@gmail.com"
+git config --global --list  
+//посмотреть все что сохранилось
+--git süsteemis salvestatakse sinu nimiп
+git branch  AdrianaPikaljov
+git checkout AdrianaPikaljov
+git status
+git add..
+git commit -a -m "nimi on lisatud"
+git push 
+//(написать два раза то что было написано)
