@@ -14,7 +14,7 @@ cd TARpv24andmebaasTerms
 git branch  adrianapikaljov
 git checkout adrianapikaljov
 git status
-git add..
+git add .
 git commit -a -m "nimi on lisatud"
 git push 
 //(написать два раза то что было написано)
