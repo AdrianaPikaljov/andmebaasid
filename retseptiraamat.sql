@@ -58,10 +58,10 @@ select * from retsept;
 create table koostis(
 koostis_id int primary key identity(1,1),
 kogus int,
-yhik_id int,
+uhik_id int,
 toiduaine_id int,
 retsept_id int,
-FOREIGN KEY (yhik_id) REFERENCES yhik(yhik_id),
+FOREIGN KEY (uhik_id) REFERENCES uhik(uhik_id),
 FOREIGN KEY (toiduaine_id) REFERENCES toiduaine(toiduaine_id),
 FOREIGN KEY (retsept_id) REFERENCES retsept(retsept_id),
 );
@@ -92,7 +92,7 @@ select * from tehtud;
 select * from retsept;
 select * from kategooria;
 select * from toiduaine;
-select * from yhik;
+select * from uhik;
 -----------------------------------
 -----------------------------------
 -----------------------------------
