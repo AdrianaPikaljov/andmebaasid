@@ -298,3 +298,6 @@ BEGIN
     WHERE kaalud_id = @kaalud_id;
 END;
 EXEC DeleteKaalud @kaalud_id = 3;
+
+
+---------------------------------------------------
