@@ -27,10 +27,10 @@ toiduaine_nimi varchar(100));
 insert into kategooria(kategooria_nimi)
 values ('magus'), ('hapu'), ('terav'), ('meat'), 
 ('drink');
-create table yhik(
-yhik_id int primary key identity(1,1),
-yhik_nimi varchar(100));
-insert into yhik(yhik_nimi)
+create table uhik(
+uhik_id int primary key identity(1,1),
+uhiku_nimi varchar(100));
+insert into uhik(uhiku_nimi)
 values ('ml'), ('g'), ('kl'), ('tl'), 
 ('sl');
 
