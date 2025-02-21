@@ -76,3 +76,7 @@ from autod;
 select *
 from autod
 where regnub like '3%'
+
+select top 6 mark, aasta 
+from autod
+order by aasta
