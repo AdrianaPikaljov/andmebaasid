@@ -75,3 +75,37 @@ update linnad set rahvaarv=650001
 where linnID=2;
 select * from linnad;
 select * from logi;
+
+
+
+--XAMPPIS
+
+--linnalisamine
+insert into logi(aeg, kasutaja, toiming, andmed)
+values( 
+now(),
+user(),
+'linn on lisatud',
+concat (new.linnanimi, ' rahvaarv: ', new.rahvaarv)
+)
+
+--linnauuendamine
+insert into logi(aeg, kasutaja, toiming, andmed)
+select 
+now(),
+user(),
+'linn on uuendatud',
+concat ('vanad andmed: ' ,old.linnanimi, ', ',old.rahvaarv,
+' \n uued andmed: ',new.linnanimi, ', ',new.rahvaarv)
+from linnad l1
+inner join linnad l2
+on l1.linnID=l2.linnID
+where new.linnID=l1.linnID
+
+--linnakustutamine
+insert into logi(aeg, kasutaja, toiming, andmed)
+select 
+now(),
+user(),
+'linn on kustutatud',
+old.linnanimi
