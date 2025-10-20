@@ -122,4 +122,24 @@ begin
 end;
 
 
-select * from tellimused
+select * from logi
+
+
+
+INSERT INTO tellimuse_staatus (staatus_ID, nimetus) VALUES
+(1, 'Ootel'),
+(2, 'Kinnitatud'),
+(3, 'Täidetud'),
+(4, 'Tühistatud');
+
+
+INSERT INTO tellimused (tellimus_aeg, staatusID) VALUES
+('2025-10-20 14:30:00', 1),
+('2025-10-19 10:15:00', 2),
+('2025-10-18 08:00:00', 3);
+
+
+use pitseria2
+
+DELETE FROM tellimuse_staatus
+WHERE staatus_ID = 4;
