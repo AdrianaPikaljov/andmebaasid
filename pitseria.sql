@@ -70,56 +70,40 @@ CREATE TABLE logi (
 );
 
 
-
-create trigger tellimuselisamine
-on tellimused
-for insert
-as
-begin
-    insert into logi (aeg, kasutaja, toiming, andmed)
+--insert
+tellimuselisamine
+insert into logi (aeg, kasutaja, toiming, andmed)
     select
-        getdate(),
-        system_user,
+        now(),
+        user(),
         'tellimus lisatud',
-        concat('staatus: ', tellimuse_staatus.nimetus, ', aeg: ', inserted.tellimus_aeg, ', tellimus id: ', inserted.tellimus_ID)
-    from inserted
-    inner join tellimuse_staatus on inserted.staatusID = tellimuse_staatus.staatus_ID;
-end;
+        concat('staatus: ', s.nimetus, ', aeg: ', new.tellimus_aeg, ', tellimus id: ', new.tellimus_ID)
+FROM tellimuse_staatus s
+WHERE s.staatus_ID = NEW.staatusID
 
 
 
-
-create trigger tellimusemuudatus
-on tellimused
-for update
-as
-begin
-    insert into logi (aeg, kasutaja, toiming, andmed)
+--update
+tellimusemuudatus
+insert into logi (aeg, kasutaja, toiming, andmed)
     select
-        getdate(),
-        system_user,
+        now(),
+        user(),
         'tellimus on uuendatud',
-		concat('vanad andmed: aeg: ', deleted.tellimus_aeg, ' ||| staatus: ', tellimuse_staatus.nimetus,' ||| tellimus id: ', inserted.tellimus_ID,' |||')
-    from deleted
-    inner join inserted on deleted.tellimus_ID = inserted.tellimus_ID
-    inner join tellimuse_staatus on inserted.staatusID = tellimuse_staatus.staatus_ID;
-end;
+		concat('vanad andmed: aeg: ', old.tellimus_aeg, ' ||| staatus: ', s.nimetus,' ||| tellimus id: ', new.tellimus_ID,' |||')
+FROM tellimuse_staatus s 
+WHERE s.staatus_ID = NEW.staatusID
 
-
-create trigger tellimusekustutus
-on tellimused
-for delete
-as
-begin
-    insert into logi (aeg, kasutaja, toiming, andmed)
+--kustutamine
+tellimusekustutus
+insert into logi (aeg, kasutaja, toiming, andmed)
     select
-        getdate(),
-        system_user,
+        now(),
+        user(),
         'tellimus on kustutatud',
-        concat('kustutatud tellimus: ', deleted.tellimus_ID, ' | staatus: ', tellimuse_staatus.nimetus, ' | tellimuse aeg: ', deleted.tellimus_aeg)
-    from deleted
-    inner join tellimuse_staatus on deleted.staatusID = tellimuse_staatus.staatus_ID;
-end;
+        concat('kustutatud tellimus: ', old.tellimus_ID, ' | staatus: ', s.nimetus, ' | tellimuse aeg: ', old.tellimus_aeg)
+FROM tellimuse_staatus s
+WHERE s.staatus_ID = OLD.staatusID
 
 
 select * from logi
@@ -138,8 +122,6 @@ INSERT INTO tellimused (tellimus_aeg, staatusID) VALUES
 ('2025-10-19 10:15:00', 2),
 ('2025-10-18 08:00:00', 3);
 
-
-use pitseria2
 
 DELETE FROM tellimuse_staatus
 WHERE staatus_ID = 4;
