@@ -123,5 +123,10 @@ INSERT INTO tellimused (tellimus_aeg, staatusID) VALUES
 ('2025-10-18 08:00:00', 3);
 
 
-DELETE FROM tellimuse_staatus
-WHERE staatus_ID = 4;
+DELETE FROM tellimused
+WHERE tellimus_ID = 4;
+
+update tellimused
+set tellimus_aeg ='2022-11-22 22:22:00'
+WHERE tellimus_ID = 1;
+
