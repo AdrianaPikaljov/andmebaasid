@@ -176,11 +176,10 @@ exec lisaopilase 'adri radasheva', 2 ;
 --3
 SELECT * FROM klass;
 
-INSERT INTO Klass (KlassNimi, OpilasteArv, opetajaid)
+INSERT INTO klass (klassnimi, opilastearv, opetajaid)
 VALUES ('6b', 33, 3);
 
 
-UPDATE Klass SET KlassNimi = '12C' WHERE KlassID = 3;
-DELETE FROM Klass WHERE KlassID = 1;
+UPDATE klass SET klassnimi = '12C' WHERE klassid = 3;
+DELETE FROM klass WHERE klassid = 1;
 CREATE TABLE Test (id int);
-
